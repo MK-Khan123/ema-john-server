@@ -13,6 +13,9 @@ app.use(cors());
 
 const port = 5000;
 
+app.get('/', (req, res) => {
+    res.send("Hello from db it's working");
+});
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
@@ -46,9 +49,9 @@ client.connect(err => {
     app.post('/productByKeys', (req, res) => {
         const productKeys = req.body;
         productCollection.find({ key: { $in: productKeys } }) //Check mongodb documentation
-        .toArray((err,documents) => {
-            res.send(documents);
-        })
+            .toArray((err, documents) => {
+                res.send(documents);
+            })
     });
 
     app.post('/addOrder', (req, res) => {
